@@ -1,0 +1,189 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+  <div class="card" th:fragment="areatable(areas)">
+  <div class="card-header">
+    <h3 class="card-title">Area Details</h3>
+    <a href="#" hx-get="/add-area" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
+      <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
+      Add Area
+    </a>
+  </div>
+  <div class="card-body border-bottom py-3">
+    <div class="d-flex">
+      <a href="#" class="btn btn-primary m-1">Copy</a>
+      <a href="#" class="btn btn-secondary m-1">CSV</a>
+      <a href="#" class="btn btn-success m-1">Excel</a>
+      <a href="#" class="btn btn-warning m-1">PDF</a>
+      <a href="#" class="btn btn-danger m-1">Print</a>
+      <div class="ms-auto text-secondary">
+        Search:
+        <div class="ms-2 d-inline-block">
+          <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  aria-label="Search invoice"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table card-table table-vcenter text-nowrap datatable table-striped">
+      <thead>
+      <tr>
+        <th class="col-1">No.</th>
+        <th class="col-1">City Name</th>
+        <th class="col-1">Area Name</th>
+        <th class="col-9">Area Discription</th>
+        <th class="text-center">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="area : ${areas}">
+        <td>
+          <span class="text-secondary" th:text="${area.id}">1</span>
+        </td>
+        <td th:text="${area.cityName}">
+          Ahemdabad
+        </td>
+        <td th:text="${area.areaName}">
+          Parimalgraden
+        </td>
+        <td th:text="${area.description}">
+          Ahemdabad is the largest city of Gujarat in India
+        </td>
+        <td class="text-center">
+          <a
+                  href="#"
+                  class="btn btn-primary btn-icon"
+                  aria-label="Button"
+          >
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-pencil"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            >
+              <path
+                      stroke="none"
+                      d="M0 0h24v24H0z"
+                      fill="none"
+              />
+              <path
+                      d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"
+              />
+              <path d="M13.5 6.5l4 4" />
+            </svg>
+          </a>
+          <a
+                  href="#"
+                  class="btn btn-danger btn-icon"
+                  aria-label="Button"
+          >
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-trash"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            >
+              <path
+                      stroke="none"
+                      d="M0 0h24v24H0z"
+                      fill="none"
+              />
+              <path d="M4 7l16 0" />
+              <path d="M10 11l0 6" />
+              <path d="M14 11l0 6" />
+              <path
+                      d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+              />
+              <path
+                      d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
+              />
+            </svg>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer d-flex align-items-center">
+    <p class="m-0 text-secondary">
+      Showing <span>1</span> to <span>8</span> of
+      <span>16</span> entries
+    </p>
+    <ul class="pagination m-0 ms-auto">
+      <li class="page-item disabled">
+        <a
+                class="page-link"
+                href="#"
+                tabindex="-1"
+                aria-disabled="true"
+        >
+          <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+          <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+          >
+            <path
+                    stroke="none"
+                    d="M0 0h24v24H0z"
+                    fill="none"
+            ></path>
+            <path d="M15 6l-6 6l6 6"></path>
+          </svg>
+          prev
+        </a>
+      </li>
+      <li class="page-item active">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link"  href="#">
+          next
+          <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+          <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+          >
+            <path
+                    stroke="none"
+                    d="M0 0h24v24H0z"
+                    fill="none"
+            ></path>
+            <path d="M9 6l6 6l-6 6"></path>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</html>

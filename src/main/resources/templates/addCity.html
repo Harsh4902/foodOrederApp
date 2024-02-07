@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
-  <form class="card" th:fragment="cityform">
+  <form class="card" id="city-form" th:fragment="cityform" hx-post="/city/addcity" hx-target="#main">
     <div class="card-header">
       <h3 class="card-title">Add City</h3>
     </div>
@@ -8,13 +8,13 @@
       <div class="mb-3">
         <label class="form-label required">City Name</label>
         <div>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter city name">
+          <input type="text" class="form-control" name="city" aria-describedby="city" placeholder="Enter city name">
         </div>
       </div>
       <div class="mb-3">
         <label class="form-label required">City Description</label>
         <div>
-          <textarea class="form-control" name="example-textarea-input" rows="1" placeholder="Add city discription" data-lt-tmp-id="lt-900098" spellcheck="false" data-gramm="false"></textarea>
+          <textarea class="form-control" name="description" rows="1" placeholder="Add city discription" data-lt-tmp-id="lt-900098" spellcheck="false" data-gramm="false"></textarea>
         </div>
       </div>
     </div>
@@ -22,5 +22,4 @@
       <button type="submit" class="btn btn-primary">Save</button>
     </div>
   </form>
-
 </html>

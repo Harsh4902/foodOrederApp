@@ -2,7 +2,7 @@
   <div class="card" th:fragment="areatable(areas)">
   <div class="card-header">
     <h3 class="card-title">Area Details</h3>
-    <a href="#" hx-get="/add-area" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
+    <a href="#" hx-get="/area/add-area" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
       <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
       <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
       Add Area
@@ -83,6 +83,10 @@
           </a>
           <a
                   href="#"
+                  th:attr="hx-delete=@{/area/delete-area/{id}(id=${area.id})}"
+                  hx-confirm='Are you sure?'
+                  hx-target="#main"
+                  hx-swap="innerHTML"
                   class="btn btn-danger btn-icon"
                   aria-label="Button"
           >

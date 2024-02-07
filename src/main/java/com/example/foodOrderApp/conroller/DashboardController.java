@@ -1,13 +1,15 @@
 package com.example.foodOrderApp.conroller;
 
-import com.example.foodOrderApp.entity.Area;
-import com.example.foodOrderApp.entity.City;
-import com.example.foodOrderApp.service.AreaService;
-import com.example.foodOrderApp.service.CityService;
+import com.example.foodOrderApp.entity.*;
+import com.example.foodOrderApp.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -15,10 +17,8 @@ import java.util.List;
 public class DashboardController {
 
     @Autowired
-    private CityService cityService;
+    private RestaurantService restaurantService;
 
-    @Autowired
-    private AreaService areaService;
     @GetMapping("/login")
     public String loginPage(){
         return "login";
@@ -29,27 +29,10 @@ public class DashboardController {
         return "index";
     }
 
-    @GetMapping("/city")
-    public String mangeCity(Model model){
-        List<City> cityList = cityService.getAllCities();
-        model.addAttribute("cities",cityList);
-        return "cityTable :: citytable";
-    }
-
-    @GetMapping("/area")
-    public String mageArea(Model model){
-        List<Area> areaList = areaService.getAreas();
-        model.addAttribute("areas",areaList);
-        return "areaTable :: areatable";
-    }
-
-    @GetMapping("/add-area")
-    public String addArea(){
-        return "addArea :: areaform";
-    }
-
-    @GetMapping("/add-city")
-    public String addCity(){
-        return "addCity :: cityform";
+    @GetMapping("/restaurants")
+    public String manageRestaurants(Model model){
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+        model.addAttribute("restaurants",restaurants);
+        return "restaurantTable :: restauranttable";
     }
 }

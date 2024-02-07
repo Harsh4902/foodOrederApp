@@ -9,4 +9,8 @@ public interface AreaService {
   void addAreas(List<Area> areaList);
   List<Area> getAreas();
 
+  Area addArea(Area area);
+
+  void deleteArea(Long id);
+
 }

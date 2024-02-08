@@ -55,6 +55,9 @@
         <td class="text-center">
           <a
                   href="#"
+                  th:attr="hx-get=@{/area/update-area/{id}(id=${area.id})}"
+                  hx-target="#main"
+                  hx-swap="innerHTML"
                   class="btn btn-primary btn-icon"
                   aria-label="Button"
           >

@@ -13,4 +13,5 @@ public interface AreaService {
 
   void deleteArea(Long id);
 
+  Area findAreaById(Long id);
 }

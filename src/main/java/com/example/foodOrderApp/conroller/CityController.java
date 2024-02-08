@@ -55,4 +55,22 @@ public class CityController {
     return "cityTable :: citytable";
   }
 
+  @GetMapping("/update-city/{id}")
+  public String updateForm(@PathVariable(name = "id")String id, Model model){
+    City city = cityService.findCityById(Long.parseLong(id));
+    System.out.println(city);
+    model.addAttribute("city",city);
+    return "addCity :: updatecity";
+  }
+
+  @PatchMapping("/update/{id}")
+  public String updateCity(@ModelAttribute("city") City city,Model model){
+    City temp = cityService.findCityById(city.getId());
+    temp.setCityName(city.getCityName());
+    temp.setDescription(city.getDescription());
+    cityService.addCity(temp);
+    List<City> cityList = cityService.getAllCities();
+    model.addAttribute("cities",cityList);
+    return "cityTable :: citytable";
+  }
 }

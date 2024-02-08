@@ -27,4 +27,31 @@
     </div>
 </form>
 
+<form class="card" th:fragment="updatesubcategory(subcategory)" th:attr="hx-patch=@{/subcategory/update/{id}(id=${subcategory.id})}" hx-target="#main" th:object="${subcategory}">
+    <div class="card-header">
+        <h3 class="card-title">Add Sub Category</h3>
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label class="form-label required">Category Name</label>
+            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname" th:value="${subcategory.categoryName}" th:field="*{categoryName}" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label required">Subcategory Name</label>
+            <div>
+                <input type="text" th:value="${subcategory.subCategoryName}" th:field="*{subCategoryName}"  class="form-control" name="name" aria-describedby="emailHelp" placeholder="Enter Subcatagory name">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label required">Subcategory Description</label>
+            <div>
+                <textarea class="form-control" type="text" th:value="${subcategory.description}" th:field="*{description}" name="description" rows="1" placeholder="Add city discription" data-lt-tmp-id="lt-900098" spellcheck="false" data-gramm="false"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
 </html>

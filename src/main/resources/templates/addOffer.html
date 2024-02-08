@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+    <form class="card" th:fragment="offerform" hx-post="/offers/addoffer" hx-target="#main">
+        <div class="card-body">
+            <h3 class="card-title">Add Offer</h3>
+            <div class="row row-cards">
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Catagory Name</label>
+                        <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" name="category" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Subcatagory Name</label>
+                        <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" name="subcategory" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Offer Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Offer Name" >
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3 mb-0">
+                        <label class="form-label">Offer discription</label>
+                        <textarea rows="2" name="description" class="form-control" placeholder="Here can be your description" ></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Start Date</label>
+                        <div class="input-icon mb-2">
+                            <input class="form-control" name="start" placeholder="Select start date" id="datepicker-icon">
+                            <span class="input-icon-addon"><!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M11 15h1"></path><path d="M12 15v3"></path></svg>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">End Date</label>
+                        <div class="input-icon mb-2">
+                            <input class="form-control" name="end" placeholder="Select end date" id="datepicker-icon">
+                            <span class="input-icon-addon"><!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M11 15h1"></path><path d="M12 15v3"></path></svg>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Discount</label>
+                    <input type="text" name="discount" class="form-control" placeholder="10" >
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+
+    <form class="card" th:fragment="updateoffer(offer)" th:attr="hx-patch=@{/offers/update/{id}(id=${offer.id})}" hx-target="#main" th:object="${offer}">
+        <div class="card-body">
+            <h3 class="card-title">Add Offer</h3>
+            <div class="row row-cards">
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Catagory Name</label>
+                        <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" name="category" th:attrappend="value=${offer.categoryName}" th:field="*{categoryName}" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Subcatagory Name</label>
+                        <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" name="subcategory" th:attrappend="value=${offer.subCategoryName}" th:field="*{subCategoryName}" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Offer Name</label>
+                    <input type="text" th:value="${offer.offerName}" th:field="*{offerName}" name="name" class="form-control" placeholder="Offer Name" >
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3 mb-0">
+                        <label class="form-label">Offer discription</label>
+                        <textarea rows="2" th:value="${offer.description}" th:field="*{description}" name="description" class="form-control" placeholder="Here can be your description" ></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Start Date</label>
+                        <div class="input-icon mb-2">
+                            <input class="form-control" th:value="${offer.startDate}" th:field="*{startDate}" name="start" placeholder="Select start date" id="datepicker-icon">
+                            <span class="input-icon-addon"><!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M11 15h1"></path><path d="M12 15v3"></path></svg>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">End Date</label>
+                        <div class="input-icon mb-2">
+                            <input class="form-control" th:value="${offer.endDate}" th:field="*{endDate}" name="end" placeholder="Select end date" id="datepicker-icon">
+                            <span class="input-icon-addon"><!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M11 15h1"></path><path d="M12 15v3"></path></svg>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Discount</label>
+                    <input type="text" th:value="${offer.discount}" th:field="*{discount}" name="discount" class="form-control" placeholder="10" >
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</html>

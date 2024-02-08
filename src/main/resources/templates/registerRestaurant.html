@@ -46,6 +46,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-payments.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-vendors.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/demo.min.css">
+  <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
   <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -60,7 +62,7 @@
 <script src="./dist/js/demo-theme.min.js?1695847769"></script>
 <div class="page page-center">
   <div class="container py-4">
-    <form class="card card-md" action="./" method="get" autocomplete="off" novalidate="">
+    <form class="card card-md" th:action="@{/restaurant/add}" method="post">
       <div class="card-body">
         <h2 class="card-title text-center mb-4">Register Restaurant</h2>
         <div class="row row-cards">
@@ -77,7 +79,7 @@
           <div class="col-sm-6 col-md-6">
             <div class="mb-3">
               <label class="form-label">Contact No.</label>
-              <input type="email" name="phone" class="form-control" placeholder="Enter email">
+              <input type="number" name="phone" class="form-control" placeholder="Enter email">
             </div>
           </div>
           <div class="mb-3">

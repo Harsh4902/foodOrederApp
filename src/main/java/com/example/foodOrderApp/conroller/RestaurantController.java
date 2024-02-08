@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,22 @@ public class RestaurantController {
 
     @PostMapping("/register")
     public String register(HttpServletRequest request){
-
         return "login";
+    }
+
+    @PostMapping("/add")
+    public String addRestaurant(HttpServletRequest request){
+        Restaurant restaurant = Restaurant.builder()
+                .name(request.getParameter("name"))
+                .email(request.getParameter("email"))
+                .cityName(request.getParameter("city"))
+                .areaName(request.getParameter("area"))
+                .address(request.getParameter("address"))
+                .contactNo(Long.parseLong(request.getParameter("phone")))
+                .password(request.getParameter("password"))
+                .build();
+        restaurantService.addRestaurant(restaurant);
+        return "redirect:/login";
     }
 
 }

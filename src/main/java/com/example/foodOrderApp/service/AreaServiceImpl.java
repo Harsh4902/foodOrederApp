@@ -31,4 +31,9 @@ public class AreaServiceImpl implements AreaService{
   public void deleteArea(Long id) {
     areaRepository.deleteById(id);
   }
+
+  @Override
+  public Area findAreaById(Long id) {
+    return areaRepository.findById(id).orElseThrow();
+  }
 }

@@ -24,7 +24,7 @@ public class DashboardController {
         return "login";
     }
 
-    @GetMapping("/index")
+    @GetMapping
     public String index(){
         return "index";
     }

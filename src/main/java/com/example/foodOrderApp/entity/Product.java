@@ -5,27 +5,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.stereotype.Service;
 
 @Entity
-@Builder
 @Getter
 @Setter
+@Service
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+@Builder
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
+    private String categoryName;
+    private String subCategoryName;
+    private String productName;
+    private String imageURL;
+    private int price;
     private String description;
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

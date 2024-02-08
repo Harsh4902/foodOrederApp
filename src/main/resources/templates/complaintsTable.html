@@ -1,15 +1,11 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
 
-<div class="card" th:fragment="catagorytable(catagories)" >
+<div class="card" th:fragment="complaitstable(complaints)">
     <div class="card-header">
-        <h3 class="card-title">Category Details</h3>
-        <a href="#" hx-get="/category/add-category" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
-            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
-            Add Category
-        </a>
+        <h3 class="card-title">Complaint Details</h3>
     </div>
     <div class="card-body border-bottom py-3">
         <div class="d-flex">
@@ -35,91 +31,50 @@
             <thead>
             <tr>
                 <th class="col-1">No.</th>
-                <th class="col-1">Category Name</th>
-                <th class="col-9">Category Discription</th>
-                <th class="text-center">Action</th>
+                <th class="col-1">USer Name</th>
+                <th class="col-1">Subject</th>
+                <th class="col-2">Discription</th>
+                <th class="col-1">Complaint Date</th>
+                <th class="col-2">Reply</th>
+                <th class="col-1">Reply Date</th>
+                <th class="text-center">Attachmnet</th>
+                <th class="text-center">Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="category : ${catagories}">
+            <tr th:each="complaint : ${complaints}">
                 <td>
-                    <span class="text-secondary" th:text="${category.id}">1</span>
+                    <span class="text-secondary" th:text="${complaint.id}">1</span>
                 </td>
-                <td th:text="${category.name}">
-                    Vegitarian
+                <td th:text="${complaint.userName}">
+                    demo@gmail.com
                 </td>
-                <td th:text="${category.description}">
-                    Vegitarian mean eating veg food
+                <td th:text="${complaint.subject}">
+                    Late Order
+                </td>
+                <td th:text="${complaint.description}">
+                    Order is not on time
+                </td>
+                <td th:text="${complaint.complaintDate}">
+                    11-04-2022
+                </td>
+                <td th:text="${complaint.reply}">
+                    will look into it
+                </td>
+                <td th:text="${complaint.replyDate}">
+                    11-04-2022
                 </td>
                 <td class="text-center">
                     <a
                             href="#"
-                            th:attr="hx-get=@{/category/update-category/{id}(id=${category.id})}"
-                            hx-target="#main"
-                            hx-swap="innerHTML"
                             class="btn btn-primary btn-icon"
                             aria-label="Button"
                     >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-pencil"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                stroke-width="2"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                        >
-                            <path
-                                    stroke="none"
-                                    d="M0 0h24v24H0z"
-                                    fill="none"
-                            />
-                            <path
-                                    d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"
-                            />
-                            <path d="M13.5 6.5l4 4" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>
                     </a>
-                    <a
-                            href="#"
-                            th:attr="hx-delete=@{/category/delete-category/{id}(id=${category.id})}"
-                            hx-confirm='Are you sure?'
-                            hx-target="#main"
-                            hx-swap="innerHTML"
-                            class="btn btn-danger btn-icon"
-                            aria-label="Button"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-trash"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                stroke-width="2"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                        >
-                            <path
-                                    stroke="none"
-                                    d="M0 0h24v24H0z"
-                                    fill="none"
-                            />
-                            <path d="M4 7l16 0" />
-                            <path d="M10 11l0 6" />
-                            <path d="M14 11l0 6" />
-                            <path
-                                    d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
-                            />
-                            <path
-                                    d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"
-                            />
-                        </svg>
-                    </a>
+                </td>
+                <td class="text-center" th:classappend="">
+                    <span class="status status-green">Resolved</span>
                 </td>
             </tr>
             </tbody>

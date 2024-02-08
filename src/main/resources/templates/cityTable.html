@@ -54,6 +54,9 @@
         <td class="text-center">
           <a
                   href="#"
+                  th:attr="hx-get=@{/city/update-city/{id}(id=${city.id})}"
+                  hx-target="#main"
+                  hx-swap="innerHTML"
                   class="btn btn-primary btn-icon"
                   aria-label="Button"
           >

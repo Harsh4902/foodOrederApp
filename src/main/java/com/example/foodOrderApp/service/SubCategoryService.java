@@ -11,4 +11,6 @@ public interface SubCategoryService {
 
     void deleteSubCategory(Long id);
 
+    SubCategory findSubCategoryById(Long id);
+
 }

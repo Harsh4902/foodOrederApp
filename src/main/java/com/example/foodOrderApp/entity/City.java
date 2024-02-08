@@ -22,4 +22,8 @@ public class City {
 
   private String description;
 
+  @Override
+  public String toString() {
+    return this.id + " " + this.cityName + " " +this.description;
+  }
 }

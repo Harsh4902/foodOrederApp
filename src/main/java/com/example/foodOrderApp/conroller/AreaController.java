@@ -1,6 +1,7 @@
 package com.example.foodOrderApp.conroller;
 
 import com.example.foodOrderApp.entity.Area;
+import com.example.foodOrderApp.entity.City;
 import com.example.foodOrderApp.service.AreaService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,26 @@ public class AreaController {
   public String deleteArea(@PathVariable(name = "id") String id,Model model){
     System.out.println(id);
     areaService.deleteArea(Long.parseLong(id));
+    List<Area> areaList = areaService.getAreas();
+    model.addAttribute("areas",areaList);
+    return "areaTable :: areatable";
+  }
+
+  @GetMapping("/update-area/{id}")
+  public String updateForm(@PathVariable(name = "id")String id, Model model){
+    Area area = areaService.findAreaById(Long.parseLong(id));
+    System.out.println(area);
+    model.addAttribute("area",area);
+    return "addArea :: updatearea";
+  }
+
+  @PatchMapping("/update/{id}")
+  public String updateCity(@ModelAttribute("area") Area area,Model model){
+    System.out.println(area);
+    Area temp = areaService.findAreaById(area.getId());
+    temp.setAreaName(area.getAreaName());
+    temp.setDescription(area.getDescription());
+    areaService.addArea(temp);
     List<Area> areaList = areaService.getAreas();
     model.addAttribute("areas",areaList);
     return "areaTable :: areatable";

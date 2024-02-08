@@ -1,12 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-
-<div class="card" th:fragment="subcategorytable(subcategories)">
-    <div class="card-header" >
-        <h3 class="card-title">Subcatagory Details</h3>
-        <a href="#" hx-get="/subcategory/add-subcategory" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
+<div class="card" th:fragment="offertable(offers)">
+    <div class="card-header">
+        <h3 class="card-title">Offer Details</h3>
+        <a href="#" hx-get="/offers/add-offer" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
-            Add Subcatagory
+            Add Offer
         </a>
     </div>
     <div class="card-body border-bottom py-3">
@@ -35,28 +34,44 @@
                 <th class="col-1">No.</th>
                 <th class="col-1">Catagory Name</th>
                 <th class="col-1">Subcatagory Name</th>
-                <th class="col-9">Subcatagory Discription</th>
+                <th class="col-1">Offer Name</th>
+                <th class="col-2">Offer Discription</th>
+                <th class="col-2">Start Date</th>
+                <th class="col-2">End Date</th>
+                <th class="col-1">Discount(%)</th>
                 <th class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="subcategory : ${subcategories}">
+            <tr th:each="offer : ${offers}">
                 <td>
-                    <span class="text-secondary" th:text="${subcategory.id}">1</span>
+                    <span class="text-secondary" th:text="${offer.id}">1</span>
                 </td>
-                <td th:text="${subcategory.categoryName}">
-                    Ahemdabad
+                <td th:text="${offer.categoryName}" >
+                    Vegitarian
                 </td>
-                <td th:text="${subcategory.subCategoryName}">
-                    Parimalgraden
+                <td th:text="${offer.subCategoryName}" >
+                    South Indian
                 </td>
-                <td th:text="${subcategory.description}">
-                    Ahemdabad is the largest city of Gujarat in India
+                <td th:text="${offer.offerName}">
+                    Festive Offer
+                </td>
+                <td th:text="${offer.description}">
+                    Diwali Offer
+                </td>
+                <td th:text="${offer.startDate}">
+                    11-04-2022
+                </td>
+                <td th:text="${offer.endDate}">
+                    11-04-2022
+                </td>
+                <td th:text="${offer.discount}">
+                    10
                 </td>
                 <td class="text-center">
                     <a
                             href="#"
-                            th:attr="hx-get=@{/subcategory/update-subcategory/{id}(id=${subcategory.id})}"
+                            th:attr="hx-get=@{/offers/update-offer/{id}(id=${offer.id})}"
                             hx-target="#main"
                             hx-swap="innerHTML"
                             class="btn btn-primary btn-icon"
@@ -87,7 +102,7 @@
                     </a>
                     <a
                             href="#"
-                            th:attr="hx-delete=@{/subcategory/delete-subcategory/{id}(id=${subcategory.id})}"
+                            th:attr="hx-delete=@{/offers/delete-offer/{id}(id=${offer.id})}"
                             hx-confirm='Are you sure?'
                             hx-target="#main"
                             hx-swap="innerHTML"
@@ -194,5 +209,4 @@
         </ul>
     </div>
 </div>
-
 </html>

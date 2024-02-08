@@ -1,6 +1,7 @@
 package com.example.foodOrderApp.conroller;
 
 import com.example.foodOrderApp.entity.Category;
+import com.example.foodOrderApp.entity.City;
 import com.example.foodOrderApp.service.CategoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,25 @@ public class CategoryController {
     public String deleteCategory(@PathVariable(name = "id") String id, Model model){
         System.out.println(id);
         categoryService.deleteCategory(Long.parseLong(id));
+        List<Category> categories = categoryService.getAllCatagories();
+        model.addAttribute("catagories",categories);
+        return "catagoryTable :: catagorytable";
+    }
+
+    @GetMapping("/update-category/{id}")
+    public String updateForm(@PathVariable(name = "id")String id, Model model){
+        Category category = categoryService.findCategoryById(Long.parseLong(id));
+        System.out.println(category);
+        model.addAttribute("category",category);
+        return "addCategory :: updatecategory";
+    }
+
+    @PatchMapping("/update/{id}")
+    public String updateCategory(@ModelAttribute("category") Category category,Model model){
+        Category temp = categoryService.findCategoryById(category.getId());
+        temp.setName(category.getName());
+        temp.setDescription(category.getDescription());
+        categoryService.addCatagory(temp);
         List<Category> categories = categoryService.getAllCatagories();
         model.addAttribute("catagories",categories);
         return "catagoryTable :: catagorytable";

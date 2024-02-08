@@ -22,4 +22,28 @@
       <button type="submit" class="btn btn-primary">Save</button>
     </div>
   </form>
+
+  <form class="card" th:fragment="updatecity(city)" th:attr="hx-patch=@{/city/update/{id}(id=${city.id})}" hx-target="#main" th:object="${city}">
+    <div class="card-header">
+      <h3 class="card-title">Update City</h3>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label required">City Name</label>
+        <div>
+          <input type="text" th:value="${city.cityName}" th:field="*{cityName}" class="form-control" name="city" aria-describedby="city" placeholder="Enter city name">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label required">City Description</label>
+        <div>
+          <textarea class="form-control" th:text="${city.description}" th:field="*{description}" name="description" rows="1" placeholder="Add city discription" data-lt-tmp-id="lt-900098" spellcheck="false" data-gramm="false"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+
 </html>

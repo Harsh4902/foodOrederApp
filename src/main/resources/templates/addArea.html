@@ -12,13 +12,40 @@
       <div class="mb-3">
         <label class="form-label required">Area Name</label>
         <div>
-          <input type="text" class="form-control" name="area"aria-describedby="emailHelp" placeholder="Enter city name">
+          <input type="text" class="form-control" name="area"aria-describedby="emailHelp" placeholder="Enter Area  name">
         </div>
       </div>
       <div class="mb-3">
         <label class="form-label required">Area Description</label>
         <div>
           <textarea class="form-control" name="description" rows="1" placeholder="Add city discription" data-lt-tmp-id="lt-900098" spellcheck="false" data-gramm="false"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+
+  <form class="card" th:fragment="updatearea(area)" th:attr="hx-patch=@{/area/update/{id}(id=${area.id})}" hx-target="#main" th:object="${area}">
+    <div class="card-header">
+      <h3 class="card-title">Add Area</h3>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label required">City Name</label>
+        <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" th:value ="${area.cityName}" th:field="*{cityName}" role="combobox" name="city" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select City" type="select-multiple"></div></div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label required">Area Name</label>
+        <div>
+          <input type="text" th:value="${area.areaName}" th:field="*{areaName}" class="form-control" name="area" aria-describedby="emailHelp" placeholder="Enter Area name">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label required">Area Description</label>
+        <div>
+          <textarea class="form-control" th:value="${area.description}" th:field="*{description}" name="description" rows="1" placeholder="Add city discription" data-lt-tmp-id="lt-900098" spellcheck="false" data-gramm="false"></textarea>
         </div>
       </div>
     </div>

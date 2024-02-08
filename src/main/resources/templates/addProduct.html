@@ -1,0 +1,83 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<form class="card" th:fragment="productform" hx-post="/products/addproduct" hx-target="#main" enctype="multipart/form-data">
+    <div class="card-body">
+        <h3 class="card-title">Add Product</h3>
+        <div class="row row-cards">
+            <div class="col-sm-6 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Catagory Name</label>
+                    <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="category" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Subcatagory Name</label>
+                    <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="subCategory" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Product name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Price</label>
+                <input type="text" name="price" class="form-control" placeholder="Product Price" value="Faker">
+            </div>
+            <div class="col-md-12">
+                <div class="mb-3 mb-0">
+                    <label class="form-label">Product discription</label>
+                    <textarea rows="2" class="form-control" name="description" placeholder="Here can be your description">Add product discription</textarea>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-label">Product Image</div>
+                <input type="file" name="image" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
+<form class="card" th:fragment="updateproduct(product)" th:attr="hx-patch=@{/products/update/{id}(id=${product.id})}" hx-target="#main" th:object="${product}" enctype="multipart/form-data">
+    <div class="card-body">
+        <h3 class="card-title">Add Product</h3>
+        <div class="row row-cards">
+            <div class="col-sm-6 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Catagory Name</label>
+                    <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="category" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Subcatagory Name</label>
+                    <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="subCategory" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Product name" th:value="${product.productName}" th:field="*{productName}" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Price</label>
+                <input type="text" name="price" class="form-control" placeholder="Product Price" th:value="${product.price}" th:field="*{price}">
+            </div>
+            <div class="col-md-12">
+                <div class="mb-3 mb-0">
+                    <label class="form-label">Product discription</label>
+                    <textarea rows="2" class="form-control" name="description" placeholder="Here can be your description" th:value="${product.description}" th:field="*{description}" ></textarea>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-label">Product Image</div>
+                <input type="file" name="image" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+</html>

@@ -15,4 +15,6 @@ public interface CityService {
 
   void deleteCityById(long id);
 
+  City findCityById(Long id);
+
 }

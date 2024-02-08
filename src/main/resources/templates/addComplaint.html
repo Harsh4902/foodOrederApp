@@ -1,0 +1,96 @@
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<!--
+    * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+    * @version 1.0.0-beta19
+    * @link https://tabler.io
+    * Copyright 2018-2023 The Tabler Authors
+    * Copyright 2018-2023 codecalm.net Paweł Kuna
+    * Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Sign in - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <meta name="msapplication-TileColor" content=""/>
+    <meta name="theme-color" content=""/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="MobileOptimized" content="320"/>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+    <meta name="description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!"/>
+    <meta name="canonical" content="https://preview.tabler.io/sign-in.html">
+    <meta name="twitter:image:src" content="https://preview.tabler.io/static/og.png">
+    <meta name="twitter:site" content="@tabler_ui">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
+    <meta name="twitter:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
+    <meta property="og:image" content="https://preview.tabler.io/static/og.png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
+    <meta property="og:site_name" content="Tabler">
+    <meta property="og:type" content="object">
+    <meta property="og:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
+    <meta property="og:url" content="https://preview.tabler.io/static/og.png">
+    <meta property="og:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
+    <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-flags.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-payments.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-vendors.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/demo.min.css">
+    <style>
+        @import url('https://rsms.me/inter/inter.css');
+        :root {
+            --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+        }
+        body {
+            font-feature-settings: "cv03", "cv04", "cv11";
+        }
+    </style>
+    <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+</head>
+<body  class=" d-flex flex-column">
+<script src="./dist/js/demo-theme.min.js?1685973381"></script>
+<div class="col-12">
+    <form class="card" hx-post="/complaints/add" th:object="${complaint}">
+        <div class="card-body">
+            <h3 class="card-title">Add Complaint</h3>
+            <div class="row row-cards">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" th:field="*{userName}" class="form-control" placeholder="Offer Name" >
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Complaint Subject</label>
+                    <input type="text" th:field="*{subject}" class="form-control" placeholder="Offer Name" >
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3 mb-0">
+                        <label class="form-label">Compalint discription</label>
+                        <textarea rows="2" th:field="*{description}" class="form-control" placeholder="Here can be your description" ></textarea>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-label">Attachment</div>
+                    <input type="file" name="attachment" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/demo.min.js"></script>
+</body>
+</html>

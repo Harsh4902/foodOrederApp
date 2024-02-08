@@ -2,6 +2,7 @@ package com.example.foodOrderApp.conroller;
 
 import com.example.foodOrderApp.entity.Restaurant;
 import com.example.foodOrderApp.service.RestaurantService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,12 @@ public class RestaurantController {
     @PostMapping("/add-list")
     public @ResponseBody ResponseEntity addRestaurants(@RequestBody List<Restaurant> restaurants){
         return new ResponseEntity(restaurantService.addRestaurants(restaurants),HttpStatus.CREATED);
+    }
+
+    @PostMapping("/register")
+    public String register(HttpServletRequest request){
+
+        return "login";
     }
 
 }

@@ -23,5 +23,6 @@ public class Restaurant {
     private String email;
     private long contactNo;
     private String address;
+    private String password;
 
 }

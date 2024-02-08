@@ -29,6 +29,11 @@ public class DashboardController {
         return "index";
     }
 
+    @GetMapping("/register")
+    public String registerPage(){
+        return "registerRestaurant";
+    }
+
     @GetMapping("/restaurants")
     public String manageRestaurants(Model model){
         List<Restaurant> restaurants = restaurantService.getAllRestaurants();

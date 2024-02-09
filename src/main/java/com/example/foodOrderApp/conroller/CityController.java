@@ -4,6 +4,8 @@ import com.example.foodOrderApp.entity.City;
 import com.example.foodOrderApp.service.CityService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/city")
@@ -71,6 +76,25 @@ public class CityController {
     cityService.addCity(temp);
     List<City> cityList = cityService.getAllCities();
     model.addAttribute("cities",cityList);
+    return "cityTable :: citytable";
+  }
+
+  @GetMapping("/page")
+  public String mangeCityPaged(Model model,
+                               @RequestParam("page") Optional<Integer> page,
+                               @RequestParam("size") Optional<Integer> size){
+
+    int currentPage = page.orElse(1);
+    int pageSize = size.orElse(5);
+    Page<City> cityPage = cityService.getPaginatedCities(PageRequest.of(currentPage-1,pageSize));
+    model.addAttribute("cities",cityPage);
+    int totalPages = cityPage.getTotalPages();
+    if (totalPages > 0) {
+      List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+        .boxed()
+        .collect(Collectors.toList());
+      model.addAttribute("pageNumbers", pageNumbers);
+    }
     return "cityTable :: citytable";
   }
 }

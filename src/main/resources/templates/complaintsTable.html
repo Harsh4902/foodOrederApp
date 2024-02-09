@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
 
-<div class="card" th:fragment="complaitstable(complaints)">
+<div class="card" th:fragment="complaintstable(complaints)">
     <div class="card-header">
         <h3 class="card-title">Complaint Details</h3>
     </div>
@@ -73,8 +73,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>
                     </a>
                 </td>
-                <td class="text-center" th:classappend="">
-                    <span class="status status-green">Resolved</span>
+                <td class="text-center"  >
+                    <span class="status" th:classappend="${#strings.toString(complaint.status) == 'PENDING'} ? 'status-red':'status-green'" th:text="${complaint.status}"></span>
                 </td>
             </tr>
             </tbody>

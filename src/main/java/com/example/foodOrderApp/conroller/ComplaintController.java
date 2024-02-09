@@ -32,12 +32,12 @@ public class ComplaintController {
         return "addComplaint";
     }
 
-    @PostMapping
-    public void addComplaint(@ModelAttribute("complaint") Complaint request, @RequestParam("attachment")MultipartFile file) throws IOException {
-        StringBuilder fileNames = new StringBuilder();
-        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileNames.append(file.getOriginalFilename());
-        Files.write(fileNameAndPath, file.getBytes());
+    @PostMapping("/add")
+    public String addComplaint(@ModelAttribute("complaint") Complaint request) throws IOException {
+//        StringBuilder fileNames = new StringBuilder();
+//        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+//        fileNames.append(file.getOriginalFilename());
+//        Files.write(fileNameAndPath, file.getBytes());
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
         String complaintDate = formatter.format(date);
@@ -49,6 +49,7 @@ public class ComplaintController {
                 .status(Status.PENDING)
                 .build();
         complaintService.addComplaint(complaint);
+        return "addComplaint";
     }
 
     @GetMapping("/manage")

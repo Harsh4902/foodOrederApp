@@ -7,7 +7,10 @@
     <div class="card-body">
         <div class="mb-3">
             <label class="form-label required">Category Name</label>
-            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+            <select name="category" class="form-select">
+                <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+            </select>
+<!--            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>-->
         </div>
         <div class="mb-3">
             <label class="form-label required">Subcategory Name</label>
@@ -34,7 +37,10 @@
     <div class="card-body">
         <div class="mb-3">
             <label class="form-label required">Category Name</label>
-            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname" th:value="${subcategory.categoryName}" th:field="*{categoryName}" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+            <select name="city" class="form-select">
+                <option  th:value="${subcategory.categoryName}" th:field="*{categoryName}"></option>
+            </select>
+<!--            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname"  aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>-->
         </div>
         <div class="mb-3">
             <label class="form-label required">Subcategory Name</label>

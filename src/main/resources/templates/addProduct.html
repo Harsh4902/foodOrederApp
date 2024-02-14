@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-<form class="card" th:fragment="productform" hx-post="/products/addproduct" hx-target="#main" enctype="multipart/form-data">
+<form class="card" th:fragment="productform" th:attr="hx-post=@{/products/addproduct/{page}(page=${currentPage})}" hx-target="#main" enctype="multipart/form-data">
     <div class="card-body">
         <h3 class="card-title">Add Product</h3>
         <div class="row row-cards">
@@ -40,7 +40,7 @@
     </div>
 </form>
 
-<form class="card" th:fragment="updateproduct(product)" th:attr="hx-patch=@{/products/update/{id}(id=${product.id})}" hx-target="#main" th:object="${product}" enctype="multipart/form-data">
+<form class="card" th:fragment="updateproduct(product)" th:attr="hx-patch=@{/products/update/{id}/{page}(id=${product.id},page=${currentPage})}" hx-target="#main" th:object="${product}" enctype="multipart/form-data">
     <div class="card-body">
         <h3 class="card-title">Add Product</h3>
         <div class="row row-cards">

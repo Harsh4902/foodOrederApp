@@ -3,6 +3,7 @@ package com.example.foodOrderApp.conroller;
 import com.example.foodOrderApp.entity.Area;
 import com.example.foodOrderApp.entity.City;
 import com.example.foodOrderApp.service.AreaService;
+import com.example.foodOrderApp.service.CityService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,8 @@ public class AreaController {
   @Autowired
   private AreaService areaService;
 
+  @Autowired
+  private CityService cityService;
   @PostMapping("/add")
   public ResponseEntity addAreas(@RequestBody List<Area> areaList){
     areaService.addAreas(areaList);
@@ -42,6 +45,7 @@ public class AreaController {
   @GetMapping("/add-area/{page}")
   public String addArea(Model model,@PathVariable("page") int page){
     model.addAttribute("currentPage",page);
+    model.addAttribute("cities",cityService.getAllCities());
     return "addArea :: areaform";
   }
 

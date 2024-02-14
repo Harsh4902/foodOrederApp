@@ -1,6 +1,7 @@
 package com.example.foodOrderApp.conroller;
 
 import com.example.foodOrderApp.entity.SubCategory;
+import com.example.foodOrderApp.service.CategoryService;
 import com.example.foodOrderApp.service.SubCategoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class SubCategoryController {
     @Autowired
     private SubCategoryService subCategoryService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping
     public String manageSubCatagory(Model model){
 //        List<SubCategory> subCategories = subCategoryService.getAllSubCategories();
@@ -32,13 +36,14 @@ public class SubCategoryController {
     @GetMapping("/add-subcategory/{page}")
     public String addSubCategory(Model model,@PathVariable("page") int page){
         model.addAttribute("currentPage",page);
+        model.addAttribute("categories",categoryService.getAllCatagories());
         return "addSubCategory :: subcategoryform";
     }
 
 
     @PostMapping("/addsubcategory/{page}")
     public String saveSubCategory(HttpServletRequest request, Model model,@PathVariable("page") int page){
-        SubCategory subcategory = SubCategory.builder().categoryName(request.getParameter("categoryname")).subCategoryName(request.getParameter("name")).description(request.getParameter("description")).build();
+        SubCategory subcategory = SubCategory.builder().categoryName(request.getParameter("category")).subCategoryName(request.getParameter("name")).description(request.getParameter("description")).build();
         subCategoryService.addSubCategory(subcategory);
 //        List<SubCategory> subCategories = subCategoryService.getAllSubCategories();
 //        model.addAttribute("subcategories",subCategories);

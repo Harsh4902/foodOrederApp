@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<form class="card" th:fragment="subcategoryform" hx-post="/subcategory/addsubcategory" hx-target="#main">
+<form class="card" th:fragment="subcategoryform" th:attr="hx-post=@{/subcategory/addsubcategory/{page}(page=${currentPage})}" hx-target="#main">
     <div class="card-header">
         <h3 class="card-title">Add Sub Category</h3>
     </div>
@@ -27,7 +27,7 @@
     </div>
 </form>
 
-<form class="card" th:fragment="updatesubcategory(subcategory)" th:attr="hx-patch=@{/subcategory/update/{id}(id=${subcategory.id})}" hx-target="#main" th:object="${subcategory}">
+<form class="card" th:fragment="updatesubcategory(subcategory)" th:attr="hx-patch=@{/subcategory/update/{id}/{page}(id=${subcategory.id},page=${currentPage})}" hx-target="#main" th:object="${subcategory}" hx-swap="innerHTML">
     <div class="card-header">
         <h3 class="card-title">Add Sub Category</h3>
     </div>

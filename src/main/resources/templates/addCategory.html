@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
 
-    <form class="card" th:fragment="categoryform" hx-post="/category/addcategory" hx-target="#main">
+    <form class="card" th:fragment="categoryform" th:attr="hx-post=@{/category/addcategory/{page}(page=${currentPage})}" hx-target="#main">
         <div class="card-header">
             <h3 class="card-title">Add Category</h3>
         </div>
@@ -25,7 +25,7 @@
         </div>
     </form>
 
-    <form class="card" th:fragment="updatecategory(category)" th:attr="hx-patch=@{/category/update/{id}(id=${category.id})}" hx-target="#main" th:object="${category}">
+    <form class="card" th:fragment="updatecategory(category)" th:attr="hx-patch=@{/category/update/{id}/{page}(id=${category.id},page=${currentPage})}" hx-target="#main" th:object="${category}">
         <div class="card-header">
             <h3 class="card-title">Add Category</h3>
         </div>

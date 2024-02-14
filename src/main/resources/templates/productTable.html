@@ -146,11 +146,11 @@
     </div>
     <div class="card-footer d-flex align-items-center">
         <p class="m-0 text-secondary">
-            Showing <span>1</span> to <span>8</span> of
-            <span>16</span> entries
+            Showing <span th:text="${currentPage*5 - 4}"></span> to <span th:text="${currentPage*5}">8</span> of
+            <span th:text="${totalItems}"></span> entries
         </p>
         <ul class="pagination m-0 ms-auto">
-            <li class="page-item disabled">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled':''">
                 <a
                         class="page-link"
                         href="#"
@@ -180,10 +180,13 @@
                     prev
                 </a>
             </li>
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
+            <!--      <li class="page-item active">-->
+            <!--        <a class="page-link" href="#">1</a>-->
+            <!--      </li>-->
+            <li th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item" th:classappend="${i == currentPage} ? 'active':''">
+                <a class="page-link" th:attr="hx-get=@{/product/page/{id}(id=${i})}" hx-target="#main" hx-swap="innerHTML" th:text="${i}">1</a>
             </li>
-            <li class="page-item">
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled':''">
                 <a class="page-link"  href="#">
                     next
                     <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->

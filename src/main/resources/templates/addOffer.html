@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-    <form class="card" th:fragment="offerform" hx-post="/offers/addoffer" hx-target="#main">
+    <form class="card" th:fragment="offerform" th:attr="hx-post=@{/offers/addoffer/{page}(page=${currentPage})}" hx-target="#main">
         <div class="card-body">
             <h3 class="card-title">Add Offer</h3>
             <div class="row row-cards">
@@ -58,7 +58,7 @@
         </div>
     </form>
 
-    <form class="card" th:fragment="updateoffer(offer)" th:attr="hx-patch=@{/offers/update/{id}(id=${offer.id})}" hx-target="#main" th:object="${offer}">
+    <form class="card" th:fragment="updateoffer(offer)" th:attr="hx-patch=@{/offers/update/{id}/{page}(id=${subcategory.id},page=${currentPage})}" hx-target="#main" th:object="${offer}">
         <div class="card-body">
             <h3 class="card-title">Add Offer</h3>
             <div class="row row-cards">

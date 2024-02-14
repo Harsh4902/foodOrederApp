@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
-  <form class="card" th:fragment="areaform" hx-post="/area/addarea" hx-target="#main">
+  <form class="card" th:fragment="areaform" th:attr="hx-post=@{/area/addarea/{page}(page=${currentPage})}" hx-target="#main">
     <div class="card-header">
       <h3 class="card-title">Add Area</h3>
     </div>
@@ -27,7 +27,7 @@
     </div>
   </form>
 
-  <form class="card" th:fragment="updatearea(area)" th:attr="hx-patch=@{/area/update/{id}(id=${area.id})}" hx-target="#main" th:object="${area}">
+  <form class="card" th:fragment="updatearea(area)" th:attr="hx-patch=@{/area/update/{id}/{page}(id=${area.id},page=${currentPage})}" hx-target="#main" th:object="${area}">
     <div class="card-header">
       <h3 class="card-title">Add Area</h3>
     </div>

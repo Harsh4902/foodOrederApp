@@ -54,7 +54,7 @@
         <td class="text-center">
           <a
                   href="#"
-                  th:attr="hx-get=@{/city/update-city/{id}(id=${city.id})}"
+                  th:attr="hx-get=@{/city/update-city/{id}/{page}(id=${area.id}, page=${currentPage})}"
                   hx-target="#main"
                   hx-swap="innerHTML"
                   class="btn btn-primary btn-icon"
@@ -85,7 +85,7 @@
           </a>
           <a
                   href="#"
-                  th:attr="hx-delete=@{/city/delete-city/{id}(id=${city.id})}"
+                  th:attr="hx-delete=@{/city/delete-city/{id}/{page}(id=${area.id}, page=${currentPage})}"
                   hx-confirm='Are you sure?'
                   hx-target="#main"
                   hx-swap="innerHTML"
@@ -127,11 +127,11 @@
   </div>
   <div class="card-footer d-flex align-items-center">
     <p class="m-0 text-secondary">
-      Showing <span>1</span> to <span>8</span> of
-      <span>16</span> entries
+      Showing <span th:text="${currentPage*5 - 4}"></span> to <span th:text="${currentPage*5}">8</span> of
+      <span th:text="${totalItems}"></span> entries
     </p>
     <ul class="pagination m-0 ms-auto">
-      <li class="page-item disabled">
+      <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled':''">
         <a
                 class="page-link"
                 href="#"
@@ -161,10 +161,13 @@
           prev
         </a>
       </li>
-      <li class="page-item active">
-        <a class="page-link" href="#">1</a>
+      <!--      <li class="page-item active">-->
+      <!--        <a class="page-link" href="#">1</a>-->
+      <!--      </li>-->
+      <li th:each=" pageNumber: ${pageNumbers}" class="page-item" th:classappend="${pageNumber == currentPage} ? 'active':''">
+        <a class="page-link" th:attr="hx-get=@{/area/page/{id}(id=${pageNumber})}" hx-target="#main" hx-swap="innerHTML" th:text="${pageNumber}">1</a>
       </li>
-      <li class="page-item">
+      <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled':''">
         <a class="page-link"  href="#">
           next
           <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->

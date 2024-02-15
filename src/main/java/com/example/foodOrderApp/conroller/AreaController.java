@@ -1,10 +1,18 @@
 package com.example.foodOrderApp.conroller;
 
 import com.example.foodOrderApp.entity.Area;
-import com.example.foodOrderApp.entity.City;
+import com.example.foodOrderApp.generator.PdfGenerator;
 import com.example.foodOrderApp.service.AreaService;
 import com.example.foodOrderApp.service.CityService;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -109,5 +121,78 @@ public class AreaController {
     model.addAttribute("totalItems", areaPage.getTotalElements());
     model.addAttribute("areas",areaPage.getContent());
     return "areaTable :: areatable";
+  }
+
+  @GetMapping("/pdf")
+  public void generatePDf(HttpServletResponse response) throws IOException {
+    response.setContentType("application/pdf");
+    DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD:HH:MM:SS");
+    String currentDateTime = dateFormat.format(new Date());
+    String headerkey = "Content-Disposition";
+    String headervalue = "attachment; filename=area" + currentDateTime + ".pdf";
+    response.setHeader(headerkey, headervalue);
+    PdfGenerator generator = new PdfGenerator();
+    generator.generatePdfForArea(areaService.getAreas(), response);
+  }
+
+  private XSSFWorkbook workbook = new XSSFWorkbook();
+  private XSSFSheet sheet;
+  private void writeHeader() {
+    sheet = workbook.createSheet("Areas");
+    Row row = sheet.createRow(0);
+    CellStyle style = workbook.createCellStyle();
+    XSSFFont font = workbook.createFont();
+    font.setBold(true);
+    font.setFontHeight(16);
+    style.setFont(font);
+    createCell(row, 0, "ID", style);
+    createCell(row, 1, "City Name", style);
+    createCell(row, 2, "Area Name", style);
+    createCell(row, 3, "Description", style);
+  }
+  private void createCell(Row row, int columnCount, Object valueOfCell, CellStyle style) {
+    sheet.autoSizeColumn(columnCount);
+    Cell cell = row.createCell(columnCount);
+    if (valueOfCell instanceof Integer) {
+      cell.setCellValue((Integer) valueOfCell);
+    } else if (valueOfCell instanceof Long) {
+      cell.setCellValue((Long) valueOfCell);
+    } else if (valueOfCell instanceof String) {
+      cell.setCellValue((String) valueOfCell);
+    } else {
+      cell.setCellValue((Boolean) valueOfCell);
+    }
+    cell.setCellStyle(style);
+  }
+  private void write() {
+    int rowCount = 1;
+    CellStyle style = workbook.createCellStyle();
+    XSSFFont font = workbook.createFont();
+    font.setFontHeight(14);
+    style.setFont(font);
+    for (Area area : areaService.getAreas()) {
+      Row row = sheet.createRow(rowCount++);
+      int columnCount = 0;
+      createCell(row, columnCount++, area.getId(), style);
+      createCell(row, columnCount++, area.getCityName(), style);
+      createCell(row, columnCount++, area.getAreaName(), style);
+      createCell(row, columnCount++, area.getDescription(), style);
+    }
+  }
+
+  @GetMapping("/excel")
+  public void generateExcelFile(HttpServletResponse response) throws IOException {
+    response.setContentType("application/octet-stream");
+    DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD:HH:MM:SS");
+    String currentDateTime = dateFormat.format(new Date());
+    String headerkey = "Content-Disposition";
+    String headervalue = "attachment; filename=area" + currentDateTime + ".xlsx";
+    response.setHeader(headerkey, headervalue);
+    writeHeader();
+    write();
+    ServletOutputStream outputStream = response.getOutputStream();
+    workbook.write(outputStream);
+    workbook.close();
+    outputStream.close();
   }
 }

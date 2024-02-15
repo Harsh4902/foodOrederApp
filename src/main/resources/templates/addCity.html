@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
-  <form class="card" id="city-form" th:fragment="cityform" hx-post="/city/addcity" hx-target="#main">
+  <form class="card" id="city-form" th:fragment="cityform" th:attr="hx-post=@{/city/addcity/{page}(page=${currentPage})}" hx-target="#main">
     <div class="card-header">
       <h3 class="card-title">Add City</h3>
     </div>

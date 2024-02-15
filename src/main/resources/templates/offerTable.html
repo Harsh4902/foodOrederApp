@@ -2,7 +2,7 @@
 <div class="card" th:fragment="offertable(offers)">
     <div class="card-header">
         <h3 class="card-title">Offer Details</h3>
-        <a href="#" th:attr="hx-get=@{/offers/add-offer/{page}(page=${currentPage})}" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
+        <a sec:authorize="hasAuthority('RESTAURANT')" href="#" th:attr="hx-get=@{/offers/add-offer/{page}(page=${currentPage})}" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
             Add Offer
@@ -10,11 +10,8 @@
     </div>
     <div class="card-body border-bottom py-3">
         <div class="d-flex">
-            <a href="#" class="btn btn-primary m-1">Copy</a>
-            <a href="#" class="btn btn-secondary m-1">CSV</a>
-            <a href="#" class="btn btn-success m-1">Excel</a>
-            <a href="#" class="btn btn-warning m-1">PDF</a>
-            <a href="#" class="btn btn-danger m-1">Print</a>
+            <a th:href="@{/offers/excel}" class="btn btn-success m-1">CSV</a>
+            <a th:href="@{/offers/pdf}" class="btn btn-danger m-1">PDF</a>
             <div class="ms-auto text-secondary">
                 Search:
                 <div class="ms-2 d-inline-block">

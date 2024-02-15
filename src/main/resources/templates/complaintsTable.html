@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       lang="en">
 
 <div class="card" th:fragment="complaintstable(complaints)">
@@ -9,11 +9,8 @@
     </div>
     <div class="card-body border-bottom py-3">
         <div class="d-flex">
-            <a href="#" class="btn btn-primary m-1">Copy</a>
-            <a href="#" class="btn btn-secondary m-1">CSV</a>
-            <a href="#" class="btn btn-success m-1">Excel</a>
-            <a href="#" class="btn btn-warning m-1">PDF</a>
-            <a href="#" class="btn btn-danger m-1">Print</a>
+            <a th:href="@{/complaints/excel}" class="btn btn-success m-1">CSV</a>
+            <a th:href="@{/complaints/pdf}" class="btn btn-danger m-1">PDF</a>
             <div class="ms-auto text-secondary">
                 Search:
                 <div class="ms-2 d-inline-block">
@@ -38,7 +35,8 @@
                 <th class="col-2">Reply</th>
                 <th class="col-1">Reply Date</th>
                 <th class="text-center">Attachmnet</th>
-                <th class="text-center">Status</th>
+                <th sec:authorize="hasAuthority('ADMIN')" class="text-center">Status</th>
+                <th sec:authorize="hasAuthority('RESTAURANT')" class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -73,8 +71,20 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>
                     </a>
                 </td>
-                <td class="text-center"  >
+                <td sec:authorize="hasAuthority('ADMIN')" class="text-center"  >
                     <span class="status" th:classappend="${#strings.toString(complaint.status) == 'PENDING'} ? 'status-red':'status-green'" th:text="${complaint.status}"></span>
+                </td>
+                <td sec:authorize="hasAuthority('RESTAURANT')" class="text-center">
+                    <a
+                            href="#"
+                            th:attr="hx-get=@{/complaints/reply/{id}/{page}(id=${complaint.id},page=${currentPage})}"
+                            hx-target="#main"
+                            hx-swap="innerHTML"
+                            class="btn btn-primary btn-icon"
+                            aria-label="Button"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-send-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z" /><path d="M6.5 12h14.5" /></svg>
+                    </a>
                 </td>
             </tr>
             </tbody>

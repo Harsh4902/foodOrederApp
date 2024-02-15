@@ -6,11 +6,8 @@
     </div>
     <div class="card-body border-bottom py-3">
         <div class="d-flex">
-            <a href="#" class="btn btn-primary m-1">Copy</a>
-            <a href="#" class="btn btn-secondary m-1">CSV</a>
-            <a href="#" class="btn btn-success m-1">Excel</a>
-            <a href="#" class="btn btn-warning m-1">PDF</a>
-            <a href="#" class="btn btn-danger m-1">Print</a>
+            <a th:href="@{/restaurant/excel}" class="btn btn-success m-1">CSV</a>
+            <a th:href="@{/restaurant/pdf}" class="btn btn-danger m-1">PDF</a>
             <div class="ms-auto text-secondary">
                 Search:
                 <div class="ms-2 d-inline-block">

@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      lang="en">
 <div class="card" th:fragment="offertable(offers)">
     <div class="card-header">
         <h3 class="card-title">Offer Details</h3>
@@ -36,7 +37,7 @@
                 <th class="col-2">Start Date</th>
                 <th class="col-2">End Date</th>
                 <th class="col-1">Discount(%)</th>
-                <th class="text-center">Action</th>
+                <th sec:authorize="hasAuthority('RESTAURANT')"  class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -65,7 +66,7 @@
                 <td th:text="${offer.discount}">
                     10
                 </td>
-                <td class="text-center">
+                <td sec:authorize="hasAuthority('RESTAURANT')"  class="text-center">
                     <a
                             href="#"
                             th:attr="hx-get=@{/offers/update-offer/{id}/{page}(id=${offer.id},page=${currentPage})}"

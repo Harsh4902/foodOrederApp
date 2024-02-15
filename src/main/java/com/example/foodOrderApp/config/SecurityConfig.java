@@ -28,10 +28,9 @@ public class SecurityConfig {
       .authorizeHttpRequests(t -> {
         t
           .requestMatchers("/login","/register").permitAll()
-          .requestMatchers("/restaurant/registerx").permitAll()
+          .requestMatchers("/restaurant/**").permitAll().requestMatchers("/complaints/**").permitAll()
           .requestMatchers("/dashboard").hasAuthority("ADMIN")
           .anyRequest().authenticated();
-
       })
       .formLogin(t -> {
         t
@@ -42,7 +41,7 @@ public class SecurityConfig {
             if(authentication.getAuthorities().stream().toList().get(0).toString().equals("ADMIN"))
               response.sendRedirect("/dashboard");
             else
-              response.sendRedirect("/res");
+              response.sendRedirect("/restaurantDashboard");
           });
       })
       .authenticationProvider(authenticationProvider)

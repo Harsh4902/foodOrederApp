@@ -35,22 +35,6 @@ public class DashboardController {
         return "login";
     }
 
-//    @PostMapping("/authenticate")
-//    public String authenticate(HttpServletRequest request) {
-//        if (request.getParameter("email").equals("admin123@gmail.com") && request.getParameter("password").equals("Admin@123"))
-//            return "redirect:/dashboard";
-//        else {
-//            HttpSession session = request.getSession();
-//            session.setAttribute("restaurantname","RK");
-//            return "restaurantDashboard";
-//        }
-//    }
-
-    @GetMapping("/restaurantDashboard")
-    public String restaurantDashboard(){
-        return "restaurantDashboard";
-    }
-
     @GetMapping("/dashboard")
     public String dashboard(){
         return "index";

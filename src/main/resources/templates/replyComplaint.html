@@ -1,0 +1,25 @@
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+    <form class="card" th:fragment="reply(complaint)" th:attr="hx-post=@{/complaints/replycomplaint/{id}/{page}(id=${complaint.id},page=${currentPage})}" th:object="${complaint}" >
+        <div class="card-body">
+            <h3 class="card-title">Reply Complaint</h3>
+            <div class="row row-cards">
+                <div class="col-md-12">
+                    <div class="mb-3 mb-0">
+                        <label class="form-label">Reply</label>
+                        <textarea rows="2" th:field="*{reply}" class="form-control" placeholder="Here can be your description" ></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+
+</body>
+</html>

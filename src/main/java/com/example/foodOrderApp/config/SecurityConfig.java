@@ -27,10 +27,9 @@ public class SecurityConfig {
       .csrf(t -> t.disable())
       .authorizeHttpRequests(t -> {
         t
-          .requestMatchers("/login","/register").permitAll()
-          .requestMatchers("/restaurant/**").permitAll().requestMatchers("/complaints/**").permitAll()
-          .requestMatchers("/dashboard").hasAuthority("ADMIN")
-          .anyRequest().authenticated();
+//          .requestMatchers("/login","/register").permitAll()
+//          .requestMatchers("/restaurant/**").permitAll().requestMatchers("/complaints/**").permitAll()
+          .anyRequest().permitAll();
       })
       .formLogin(t -> {
         t
@@ -38,10 +37,7 @@ public class SecurityConfig {
           .usernameParameter("email")
           .passwordParameter("password")
           .successHandler((request, response, authentication) -> {
-            if(authentication.getAuthorities().stream().toList().get(0).toString().equals("ADMIN"))
               response.sendRedirect("/dashboard");
-            else
-              response.sendRedirect("/restaurantDashboard");
           });
       })
       .authenticationProvider(authenticationProvider)

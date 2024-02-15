@@ -5,7 +5,7 @@
 <div class="card" th:fragment="citytable(cities)">
   <div class="card-header">
     <h3 class="card-title">City Details</h3>
-    <a href="#" hx-get="/city/add-city" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
+    <a href="#" th:attr="hx-get=@{/city/add-city/{page}(page=${currentPage})}" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
       <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
       <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
       Add City
@@ -13,11 +13,8 @@
   </div>
   <div class="card-body border-bottom py-3">
     <div class="d-flex">
-      <a href="#" class="btn btn-primary m-1">Copy</a>
-      <a href="#" class="btn btn-secondary m-1">CSV</a>
-      <a href="#" class="btn btn-success m-1">Excel</a>
-      <a href="#" class="btn btn-warning m-1">PDF</a>
-      <a href="#" class="btn btn-danger m-1">Print</a>
+      <a th:href="@{/city/excel}" class="btn btn-success m-1">CSV</a>
+      <a th:href="@{/city/pdf}" class="btn btn-danger m-1">PDF</a>
       <div class="ms-auto text-secondary">
         Search:
         <div class="ms-2 d-inline-block">
@@ -54,7 +51,7 @@
         <td class="text-center">
           <a
                   href="#"
-                  th:attr="hx-get=@{/city/update-city/{id}/{page}(id=${area.id}, page=${currentPage})}"
+                  th:attr="hx-get=@{/city/update-city/{id}/{page}(id=${city.id}, page=${currentPage})}"
                   hx-target="#main"
                   hx-swap="innerHTML"
                   class="btn btn-primary btn-icon"
@@ -85,7 +82,7 @@
           </a>
           <a
                   href="#"
-                  th:attr="hx-delete=@{/city/delete-city/{id}/{page}(id=${area.id}, page=${currentPage})}"
+                  th:attr="hx-delete=@{/city/delete-city/{id}/{page}(id=${city.id}, page=${currentPage})}"
                   hx-confirm='Are you sure?'
                   hx-target="#main"
                   hx-swap="innerHTML"

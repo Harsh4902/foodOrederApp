@@ -23,7 +23,7 @@
     </div>
   </form>
 
-  <form class="card" th:fragment="updatecity(city)" th:attr="hx-patch=@{/city/update/{id}(id=${city.id})}" hx-target="#main" th:object="${city}">
+  <form class="card" th:fragment="updatecity(city)" th:attr="hx-patch=@{/city/update/{id}/{page}(id=${area.id},page=${currentPage})}" hx-target="#main" th:object="${city}">
     <div class="card-header">
       <h3 class="card-title">Update City</h3>
     </div>

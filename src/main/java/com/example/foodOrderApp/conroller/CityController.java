@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -32,9 +31,10 @@ public class CityController {
 
   @GetMapping
   public String mangeCity(Model model){
-    List<City> cityList = cityService.getAllCities();
-    model.addAttribute("cities",cityList);
-    return "cityTable :: citytable";
+//    List<City> cityList = cityService.getAllCities();
+//    model.addAttribute("cities",cityList);
+//    return "cityTable :: citytable";
+    return mangeCityPaged(model, 1);
   }
 
   @GetMapping("/add-city")
@@ -51,43 +51,43 @@ public class CityController {
     return "cityTable :: citytable";
   }
 
-  @DeleteMapping("/delete-city/{id}")
-  public String deleteCity(@PathVariable(name = "id") String id,Model model){
+  @DeleteMapping("/delete-city/{id}/{page}")
+  public String deleteCity(@PathVariable(name = "id") String id,Model model,@PathVariable("page") int page){
     System.out.println(id);
     cityService.deleteCityById(Long.parseLong(id));
-    List<City> cityList = cityService.getAllCities();
-    model.addAttribute("cities",cityList);
-    return "cityTable :: citytable";
+//    List<City> cityList = cityService.getAllCities();
+//    model.addAttribute("cities",cityList);
+//    return "cityTable :: citytable";
+
+    return mangeCityPaged(model, page);
   }
 
-  @GetMapping("/update-city/{id}")
-  public String updateForm(@PathVariable(name = "id")String id, Model model){
+  @GetMapping("/update-city/{id}/{page}")
+  public String updateForm(@PathVariable(name = "id")String id, Model model,@PathVariable("page") int page){
     City city = cityService.findCityById(Long.parseLong(id));
     System.out.println(city);
     model.addAttribute("city",city);
+    model.addAttribute("currentPage",page);
     return "addCity :: updatecity";
   }
 
-  @PatchMapping("/update/{id}")
-  public String updateCity(@ModelAttribute("city") City city,Model model){
+  @PatchMapping("/update/{id}/{page}")
+  public String updateCity(@ModelAttribute("city") City city,Model model,@PathVariable("page") int page){
     City temp = cityService.findCityById(city.getId());
     temp.setCityName(city.getCityName());
     temp.setDescription(city.getDescription());
     cityService.addCity(temp);
-    List<City> cityList = cityService.getAllCities();
-    model.addAttribute("cities",cityList);
-    return "cityTable :: citytable";
+//    List<City> cityList = cityService.getAllCities();
+//    model.addAttribute("cities",cityList);
+//    return "cityTable :: citytable";
+    return mangeCityPaged(model, page);
   }
 
-  @GetMapping("/page")
-  public String mangeCityPaged(Model model,
-                               @RequestParam("page") Optional<Integer> page,
-                               @RequestParam("size") Optional<Integer> size){
-
-    int currentPage = page.orElse(1);
-    int pageSize = size.orElse(5);
+  @GetMapping("/page/{page}")
+  public String mangeCityPaged(Model model, @PathVariable("page") int page){
+    int currentPage = page;
+    int pageSize = 5;
     Page<City> cityPage = cityService.getPaginatedCities(PageRequest.of(currentPage-1,pageSize));
-    model.addAttribute("cities",cityPage);
     int totalPages = cityPage.getTotalPages();
     if (totalPages > 0) {
       List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -95,6 +95,10 @@ public class CityController {
         .collect(Collectors.toList());
       model.addAttribute("pageNumbers", pageNumbers);
     }
+    model.addAttribute("currentPage", currentPage);
+    model.addAttribute("totalPages", totalPages);
+    model.addAttribute("totalItems", cityPage.getTotalElements());
+    model.addAttribute("cities",cityPage.getContent());
     return "cityTable :: citytable";
   }
 }

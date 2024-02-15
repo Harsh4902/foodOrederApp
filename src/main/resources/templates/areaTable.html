@@ -2,7 +2,7 @@
   <div class="card" th:fragment="areatable(areas)">
   <div class="card-header">
     <h3 class="card-title">Area Details</h3>
-    <a href="#" hx-get="/area/add-area" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
+    <a href="#" th:attr="hx-get=@{/area/add-area/{page}(page=${currentPage})}" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
       <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
       <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
       Add Area
@@ -55,7 +55,7 @@
         <td class="text-center">
           <a
                   href="#"
-                  th:attr="hx-get=@{/area/update-area/{id}(id=${area.id})}"
+                  th:attr="hx-get=@{/area/update-area/{id}/{page}(id=${area.id}, page=${currentPage})}"
                   hx-target="#main"
                   hx-swap="innerHTML"
                   class="btn btn-primary btn-icon"
@@ -86,7 +86,7 @@
           </a>
           <a
                   href="#"
-                  th:attr="hx-delete=@{/area/delete-area/{id}(id=${area.id})}"
+                  th:attr="hx-delete=@{/area/delete-area/{id}/{page}(id=${area.id}, page=${currentPage})}"
                   hx-confirm='Are you sure?'
                   hx-target="#main"
                   hx-swap="innerHTML"
@@ -126,71 +126,74 @@
       </tbody>
     </table>
   </div>
-  <div class="card-footer d-flex align-items-center">
-    <p class="m-0 text-secondary">
-      Showing <span>1</span> to <span>8</span> of
-      <span>16</span> entries
-    </p>
-    <ul class="pagination m-0 ms-auto">
-      <li class="page-item disabled">
-        <a
-                class="page-link"
-                href="#"
-                tabindex="-1"
-                aria-disabled="true"
-        >
-          <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-          <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+    <div class="card-footer d-flex align-items-center">
+      <p class="m-0 text-secondary">
+        Showing <span th:text="${currentPage*5 - 4}"></span> to <span th:text="${currentPage*5}">8</span> of
+        <span th:text="${totalItems}"></span> entries
+      </p>
+      <ul class="pagination m-0 ms-auto">
+        <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled':''">
+          <a
+                  class="page-link"
+                  href="#"
+                  tabindex="-1"
+                  aria-disabled="true"
           >
-            <path
-                    stroke="none"
-                    d="M0 0h24v24H0z"
+            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
                     fill="none"
-            ></path>
-            <path d="M15 6l-6 6l6 6"></path>
-          </svg>
-          prev
-        </a>
-      </li>
-      <li class="page-item active">
-        <a class="page-link" href="#">1</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link"  href="#">
-          next
-          <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-          <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-          >
-            <path
-                    stroke="none"
-                    d="M0 0h24v24H0z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            >
+              <path
+                      stroke="none"
+                      d="M0 0h24v24H0z"
+                      fill="none"
+              ></path>
+              <path d="M15 6l-6 6l6 6"></path>
+            </svg>
+            prev
+          </a>
+        </li>
+        <!--      <li class="page-item active">-->
+        <!--        <a class="page-link" href="#">1</a>-->
+        <!--      </li>-->
+        <li th:each=" pageNumber: ${pageNumbers}" class="page-item" th:classappend="${pageNumber == currentPage} ? 'active':''">
+          <a class="page-link" th:attr="hx-get=@{/area/page/{id}(id=${pageNumber})}" hx-target="#main" hx-swap="innerHTML" th:text="${pageNumber}">1</a>
+        </li>
+        <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled':''">
+          <a class="page-link"  href="#">
+            next
+            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
                     fill="none"
-            ></path>
-            <path d="M9 6l6 6l-6 6"></path>
-          </svg>
-        </a>
-      </li>
-    </ul>
-  </div>
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            >
+              <path
+                      stroke="none"
+                      d="M0 0h24v24H0z"
+                      fill="none"
+              ></path>
+              <path d="M9 6l6 6l-6 6"></path>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
 </div>
 </html>

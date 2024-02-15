@@ -2,7 +2,7 @@
 <div class="card" th:fragment="offertable(offers)">
     <div class="card-header">
         <h3 class="card-title">Offer Details</h3>
-        <a href="#" hx-get="/offers/add-offer" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
+        <a href="#" th:attr="hx-get=@{/offers/add-offer/{page}(page=${currentPage})}" hx-target="#main" hx-swap="innerHTML" class="btn btn-primary d-none d-sm-inline-block ms-auto" data-bs-toggle="modal" data-bs-target="#modal-report">
             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
             Add Offer
@@ -71,7 +71,7 @@
                 <td class="text-center">
                     <a
                             href="#"
-                            th:attr="hx-get=@{/offers/update-offer/{id}(id=${offer.id})}"
+                            th:attr="hx-get=@{/offers/update-offer/{id}/{page}(id=${offer.id},page=${currentPage})}"
                             hx-target="#main"
                             hx-swap="innerHTML"
                             class="btn btn-primary btn-icon"
@@ -102,7 +102,7 @@
                     </a>
                     <a
                             href="#"
-                            th:attr="hx-delete=@{/offers/delete-offer/{id}(id=${offer.id})}"
+                            th:attr="hx-delete=@{/offers/delete-offer/{id}/{page}(id=${offer.id},page=${currentPage})}"
                             hx-confirm='Are you sure?'
                             hx-target="#main"
                             hx-swap="innerHTML"
@@ -144,11 +144,11 @@
     </div>
     <div class="card-footer d-flex align-items-center">
         <p class="m-0 text-secondary">
-            Showing <span>1</span> to <span>8</span> of
-            <span>16</span> entries
+            Showing <span th:text="${currentPage*5 - 4}"></span> to <span th:text="${currentPage*5}">8</span> of
+            <span th:text="${totalItems}"></span> entries
         </p>
         <ul class="pagination m-0 ms-auto">
-            <li class="page-item disabled">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled':''">
                 <a
                         class="page-link"
                         href="#"
@@ -178,10 +178,13 @@
                     prev
                 </a>
             </li>
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
+            <!--      <li class="page-item active">-->
+            <!--        <a class="page-link" href="#">1</a>-->
+            <!--      </li>-->
+            <li th:each=" pageNumber: ${pageNumbers}" class="page-item" th:classappend="${pageNumber == currentPage} ? 'active':''">
+                <a class="page-link" th:attr="hx-get=@{/area/page/{id}(id=${pageNumber})}" hx-target="#main" hx-swap="innerHTML" th:text="${pageNumber}">1</a>
             </li>
-            <li class="page-item">
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled':''">
                 <a class="page-link"  href="#">
                     next
                     <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->

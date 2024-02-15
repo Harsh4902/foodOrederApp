@@ -1,13 +1,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<form class="card" th:fragment="subcategoryform" hx-post="/subcategory/addsubcategory" hx-target="#main">
+<form class="card" th:fragment="subcategoryform" th:attr="hx-post=@{/subcategory/addsubcategory/{page}(page=${currentPage})}" hx-target="#main">
     <div class="card-header">
         <h3 class="card-title">Add Sub Category</h3>
     </div>
     <div class="card-body">
         <div class="mb-3">
             <label class="form-label required">Category Name</label>
-            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+            <select name="category" class="form-select">
+                <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+            </select>
+<!--            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>-->
         </div>
         <div class="mb-3">
             <label class="form-label required">Subcategory Name</label>
@@ -27,14 +30,17 @@
     </div>
 </form>
 
-<form class="card" th:fragment="updatesubcategory(subcategory)" th:attr="hx-patch=@{/subcategory/update/{id}(id=${subcategory.id})}" hx-target="#main" th:object="${subcategory}">
+<form class="card" th:fragment="updatesubcategory(subcategory)" th:attr="hx-patch=@{/subcategory/update/{id}/{page}(id=${subcategory.id},page=${currentPage})}" hx-target="#main" th:object="${subcategory}" hx-swap="innerHTML">
     <div class="card-header">
         <h3 class="card-title">Add Sub Category</h3>
     </div>
     <div class="card-body">
         <div class="mb-3">
             <label class="form-label required">Category Name</label>
-            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname" th:value="${subcategory.categoryName}" th:field="*{categoryName}" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>
+            <select name="city" class="form-select">
+                <option  th:value="${subcategory.categoryName}" th:field="*{categoryName}"></option>
+            </select>
+<!--            <div class="ts-wrapper form-select multi"><div class="ts-control"><input tabindex="0" role="combobox" name="categoryname"  aria-haspopup="listbox" aria-expanded="false" aria-controls="select-tags-ts-dropdown" id="select-tags-ts-control" placeholder="Select catagory" type="select-multiple"></div></div>-->
         </div>
         <div class="mb-3">
             <label class="form-label required">Subcategory Name</label>

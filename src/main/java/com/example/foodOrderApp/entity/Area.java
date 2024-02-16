@@ -23,13 +23,4 @@ public class Area {
   private String cityName;
   private String description;
 
-  @Override
-  public String toString() {
-    return "Area{" +
-            "id=" + id +
-            ", areaName='" + areaName + '\'' +
-            ", cityName='" + cityName + '\'' +
-            ", description='" + description + '\'' +
-            '}';
-  }
 }

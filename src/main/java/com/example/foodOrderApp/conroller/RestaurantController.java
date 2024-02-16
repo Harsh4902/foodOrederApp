@@ -42,6 +42,9 @@ public class RestaurantController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private XSSFWorkbook workbook = new XSSFWorkbook();
+    private XSSFSheet sheet;
+
     @PostMapping("/add-list")
     public @ResponseBody ResponseEntity addRestaurants(@RequestBody List<Restaurant> restaurants){
         return new ResponseEntity(restaurantService.addRestaurants(restaurants),HttpStatus.CREATED);
@@ -83,10 +86,10 @@ public class RestaurantController {
         generator.generatePdfForRestaurant(restaurantService.getAllRestaurants(), response);
     }
 
-    private XSSFWorkbook workbook = new XSSFWorkbook();
-    private XSSFSheet sheet;
     private void writeHeader() {
-        sheet = workbook.createSheet("Areas");
+
+        String dateTime=new Date().toString().replaceAll(":", "_");
+        sheet = workbook.createSheet("Restaurants"+dateTime);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -147,7 +150,6 @@ public class RestaurantController {
         write();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
-        workbook.close();
         outputStream.close();
     }
 }

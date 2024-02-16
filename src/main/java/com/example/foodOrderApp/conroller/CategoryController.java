@@ -35,6 +35,9 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    private XSSFWorkbook workbook = new XSSFWorkbook();
+    private XSSFSheet sheet;
+
     @GetMapping("/add-category/{page}")
     public String addCategory(Model model,@PathVariable("page") int page){
         model.addAttribute("currentPage",page);
@@ -122,10 +125,9 @@ public class CategoryController {
         generator.generatePdfForCategory(categoryService.getAllCatagories(), response);
     }
 
-    private XSSFWorkbook workbook = new XSSFWorkbook();
-    private XSSFSheet sheet;
     private void writeHeader() {
-        sheet = workbook.createSheet("Cities");
+        String dateTime=new Date().toString().replaceAll(":", "_");
+        sheet = workbook.createSheet("Categories"+dateTime);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -177,7 +179,6 @@ public class CategoryController {
         write();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
-        workbook.close();
         outputStream.close();
     }
 }

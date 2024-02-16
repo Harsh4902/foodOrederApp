@@ -39,6 +39,9 @@ public class SubCategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    private XSSFWorkbook workbook = new XSSFWorkbook();
+    private XSSFSheet sheet;
+
     @GetMapping
     public String manageSubCatagory(Model model){
 //        List<SubCategory> subCategories = subCategoryService.getAllSubCategories();
@@ -129,10 +132,9 @@ public class SubCategoryController {
         generator.generatePdfForSubCategory(subCategoryService.getAllSubCategories(), response);
     }
 
-    private XSSFWorkbook workbook = new XSSFWorkbook();
-    private XSSFSheet sheet;
     private void writeHeader() {
-        sheet = workbook.createSheet("Cities");
+        String dateTime=new Date().toString().replaceAll(":", "_");
+        sheet = workbook.createSheet("Subcategories"+dateTime);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -186,7 +188,6 @@ public class SubCategoryController {
         write();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
-        workbook.close();
         outputStream.close();
     }
 

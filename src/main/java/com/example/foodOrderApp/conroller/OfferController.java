@@ -36,6 +36,9 @@ public class OfferController {
     @Autowired
     private OfferService offerService;
 
+    private XSSFWorkbook workbook = new XSSFWorkbook();
+    private XSSFSheet sheet;
+
     @GetMapping
     public String mangeOffers(Model model){
         return mangeOfferPaged(model, 1);
@@ -128,10 +131,9 @@ public class OfferController {
         generator.generatePdfForOffers(offerService.getAllOffers(), response);
     }
 
-    private XSSFWorkbook workbook = new XSSFWorkbook();
-    private XSSFSheet sheet;
     private void writeHeader() {
-        sheet = workbook.createSheet("Areas");
+        String dateTime=new Date().toString().replaceAll(":", "_");
+        sheet = workbook.createSheet("Offers"+dateTime);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -196,7 +198,6 @@ public class OfferController {
         write();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
-        workbook.close();
         outputStream.close();
     }
 

@@ -43,6 +43,9 @@ public class ComplaintController {
     @Autowired
     private ComplaintService complaintService;
 
+    private XSSFWorkbook workbook = new XSSFWorkbook();
+    private XSSFSheet sheet;
+
     @GetMapping
     public String complaintPage(Model model){
         model.addAttribute("complaint",new Complaint());
@@ -129,11 +132,9 @@ public class ComplaintController {
         generator.generatePdfForComplaints(complaintService.getAllComplaints(), response);
     }
 
-
-    private XSSFWorkbook workbook = new XSSFWorkbook();
-    private XSSFSheet sheet;
     private void writeHeader() {
-        sheet = workbook.createSheet("Areas");
+        String dateTime=new Date().toString().replaceAll(":", "_");
+        sheet = workbook.createSheet("Complaints"+dateTime);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -197,7 +198,6 @@ public class ComplaintController {
         write();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
-        workbook.close();
         outputStream.close();
     }
 

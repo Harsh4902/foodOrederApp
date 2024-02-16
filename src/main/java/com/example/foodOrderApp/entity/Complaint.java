@@ -24,18 +24,4 @@ public class Complaint {
     private String reply;
     private Status status;
     private String attachment;
-
-    @Override
-    public String toString() {
-        return "Complaint{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", subject='" + subject + '\'' +
-                ", description='" + description + '\'' +
-                ", complaintDate='" + complaintDate + '\'' +
-                ", replyDate='" + replyDate + '\'' +
-                ", reply='" + reply + '\'' +
-                ", status=" + status +
-                '}';
-    }
 }

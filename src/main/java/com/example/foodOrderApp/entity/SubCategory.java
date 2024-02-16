@@ -19,14 +19,4 @@ public class SubCategory {
     private String categoryName;
     private String subCategoryName;
     private String description;
-
-    @Override
-    public String toString() {
-        return "SubCategory{" +
-                "id=" + id +
-                ", categoryName='" + categoryName + '\'' +
-                ", subCategoryName='" + subCategoryName + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

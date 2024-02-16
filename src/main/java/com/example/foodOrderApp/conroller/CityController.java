@@ -36,6 +36,9 @@ public class CityController {
   @Autowired
   private CityService cityService;
 
+  private XSSFWorkbook workbook = new XSSFWorkbook();
+  private XSSFSheet sheet;
+
   @PostMapping("/add-list")
   public ResponseEntity addCities(@RequestBody List<City> cities){
     cityService.addCities(cities);
@@ -130,10 +133,9 @@ public class CityController {
     generator.generatePdfForCity(cityService.getAllCities(), response);
   }
 
-  private XSSFWorkbook workbook = new XSSFWorkbook();
-  private XSSFSheet sheet;
   private void writeHeader() {
-    sheet = workbook.createSheet("Cities");
+    String dateTime=new Date().toString().replaceAll(":", "_");
+    sheet = workbook.createSheet("Cities"+dateTime);
     Row row = sheet.createRow(0);
     CellStyle style = workbook.createCellStyle();
     XSSFFont font = workbook.createFont();
@@ -185,7 +187,6 @@ public class CityController {
     write();
     ServletOutputStream outputStream = response.getOutputStream();
     workbook.write(outputStream);
-    workbook.close();
     outputStream.close();
   }
 }

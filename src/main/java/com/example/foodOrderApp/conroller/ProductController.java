@@ -47,6 +47,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    private XSSFWorkbook workbook = new XSSFWorkbook();
+    private XSSFSheet sheet;
+
     @GetMapping
     public String manageProducts(Model model){
         return mangeProductPaged(model,1);
@@ -151,10 +154,9 @@ public class ProductController {
         generator.generatePdfForProduct(productService.getAllProducts(), response);
     }
 
-    private XSSFWorkbook workbook = new XSSFWorkbook();
-    private XSSFSheet sheet;
     private void writeHeader() {
-        sheet = workbook.createSheet("Areas");
+        String dateTime=new Date().toString().replaceAll(":", "_");
+        sheet = workbook.createSheet("Products"+dateTime);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -214,7 +216,6 @@ public class ProductController {
         write();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
-        workbook.close();
         outputStream.close();
     }
 }

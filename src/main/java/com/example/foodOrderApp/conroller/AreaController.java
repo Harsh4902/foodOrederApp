@@ -39,6 +39,10 @@ public class AreaController {
 
   @Autowired
   private CityService cityService;
+
+  private XSSFWorkbook workbook = new XSSFWorkbook();
+  private XSSFSheet sheet;
+
   @PostMapping("/add")
   public ResponseEntity addAreas(@RequestBody List<Area> areaList){
     areaService.addAreas(areaList);
@@ -135,10 +139,9 @@ public class AreaController {
     generator.generatePdfForArea(areaService.getAreas(), response);
   }
 
-  private XSSFWorkbook workbook = new XSSFWorkbook();
-  private XSSFSheet sheet;
   private void writeHeader() {
-    sheet = workbook.createSheet("Areas");
+    String dateTime=new Date().toString().replaceAll(":", "_");
+    sheet = workbook.createSheet("Areas"+dateTime);
     Row row = sheet.createRow(0);
     CellStyle style = workbook.createCellStyle();
     XSSFFont font = workbook.createFont();
@@ -192,7 +195,6 @@ public class AreaController {
     write();
     ServletOutputStream outputStream = response.getOutputStream();
     workbook.write(outputStream);
-    workbook.close();
     outputStream.close();
   }
 }

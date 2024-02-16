@@ -27,19 +27,4 @@ public class Offer {
     private String description;
     private String startDate;
     private String endDate;
-
-    @Override
-    public String toString() {
-        return "Offer{" +
-                "id=" + id +
-                ", offerName='" + offerName + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", subCategoryName='" + subCategoryName + '\'' +
-                ", restaurantName='" + restaurantName + '\'' +
-                ", discount=" + discount +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
 }
